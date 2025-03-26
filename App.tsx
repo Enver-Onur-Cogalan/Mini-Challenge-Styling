@@ -1,25 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
+import * as Animatable from 'react-native-animatable';
+
 import CenteredText from "./components/CenteredText";
 import ResponsiveButton from "./components/ResponsiveButton";
 import Card from "./components/Card";
-import FadeInView from "./components/animations/FadeInView";
+import ScrollAwareAnimatableView from "./components/ScrollAwareAnimatableView";
 
 export default function App() {
+  const [scrollY, setScrollY] = useState(0);
+
+  const handleScroll = (e) => {
+    setScrollY(e.nativeEvent.contentOffset.y);
+  };
+
+
   return (
-    <View>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <FadeInView>
+    <View style={{ flex: 1 }}>
+      <ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
+
+        <ScrollAwareAnimatableView scrollY={scrollY} animation='fadeInDown'>
           <CenteredText />
-        </FadeInView>
+        </ScrollAwareAnimatableView>
 
-        <FadeInView>
+        <ScrollAwareAnimatableView scrollY={scrollY} animation='zoomIn' delay={200}>
           <ResponsiveButton />
-        </FadeInView>
+        </ScrollAwareAnimatableView>
 
-        <FadeInView>
+        <ScrollAwareAnimatableView scrollY={scrollY} animation='slideInRight' delay={400}>
           <Card />
-        </FadeInView>
+        </ScrollAwareAnimatableView>
+
       </ScrollView>
     </View>
   );
