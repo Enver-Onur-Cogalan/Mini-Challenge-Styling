@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import FadeInView from './animations/FadeInView';
 
 export default function CenteredText() {
     return (
-        <View style={styles.container}>
+        <FadeInView style={styles.container}>
             <Text style={styles.text}>Hello 👋 I am developer</Text>
-        </View>
+        </FadeInView>
     );
 }
 
